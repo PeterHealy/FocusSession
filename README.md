@@ -15,6 +15,30 @@ This repository contains a working, dependency-light development v1:
 There is no account, backend, telemetry, analytics, subscription, AI model,
 third-party runtime dependency, or application network client.
 
+## Screenshots
+
+Start a timed focus session from the macOS menu bar and choose whether to earn
+breaks. Browser content in this screenshot is intentionally blurred for
+privacy.
+
+![FocusSession menu-bar panel over a privacy-blurred browser](docs/images/focus-session-menu.png)
+
+Opening a restricted site leads to a local blocked page with the remaining
+session time and the next available break. The browser toolbar is intentionally
+obscured for privacy.
+
+![FocusSession page showing that X / Twitter is paused](docs/images/blocked-page.png)
+
+Configure native apps and websites from one local settings screen.
+
+<p align="center">
+  <img
+    src="docs/images/restrictions-settings.png"
+    alt="FocusSession restrictions settings for blocked apps and websites"
+    width="560"
+  >
+</p>
+
 ## Current status
 
 The browser and Swift automated suites pass on Apple-silicon macOS with the
