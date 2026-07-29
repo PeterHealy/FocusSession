@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Focus Session</title>
+    <link rel="stylesheet" href="../styles/common.css">
+  </head>
+  <body class="popup-body">
+    <main class="popup">
+      <div class="eyebrow">Focus Session</div>
+      <h1 id="status">Checking…</h1>
+      <p id="detail" class="muted">Reading local session state.</p>
+      <p id="native-status" class="connection"></p>
+      <p id="error" class="error" role="alert"></p>
+      <button id="start-break" class="primary full" type="button" hidden>
+        Start 5-minute break
+      </button>
+      <button id="options" class="text-button" type="button">
+        Settings and privacy
+      </button>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

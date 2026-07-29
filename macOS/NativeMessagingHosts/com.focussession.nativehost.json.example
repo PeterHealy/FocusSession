@@ -1,0 +1,9 @@
+{
+  "name": "com.focussession.nativehost",
+  "description": "Local Focus Session bridge for Chrome and Brave",
+  "path": "/ABSOLUTE/PATH/TO/FocusSessionNativeHost",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://REPLACE_WITH_EXTENSION_ID/"
+  ]
+}

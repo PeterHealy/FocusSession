@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Focus Session settings</title>
+    <link rel="stylesheet" href="../styles/common.css">
+  </head>
+  <body class="options-body">
+    <main class="options">
+      <header>
+        <div class="eyebrow">Focus Session</div>
+        <h1>Browser settings</h1>
+        <p class="lede">
+          Blocking and analysis happen on this Mac. Page titles, complete URLs,
+          searches, and page content are never saved or sent to the native app.
+        </p>
+      </header>
+
+      <section class="card section">
+        <h2>Connection</h2>
+        <p id="connection">Checking the macOS app…</p>
+        <button id="refresh" class="secondary" type="button">Check again</button>
+      </section>
+
+      <section class="card section">
+        <h2>Restricted sites</h2>
+        <p class="muted">
+          The macOS app is the source of truth for this list. Add a website by
+          pasting its address, or choose any installed app.
+        </p>
+        <button id="manage-restrictions" class="secondary" type="button">
+          Edit in FocusSession
+        </button>
+        <ul id="domains" class="domain-list"></ul>
+      </section>
+
+      <section class="card section">
+        <h2>Local activity totals</h2>
+        <label class="toggle-row">
+          <span>
+            <strong>Measure active base domains</strong>
+            <small>
+              Off by default. Stores domain-level seconds only while this
+              browser is frontmost.
+            </small>
+            <small id="activity-policy"></small>
+          </span>
+          <input id="observe-activity" type="checkbox">
+        </label>
+      </section>
+
+      <section class="card section">
+        <h2>Optional 30-day browser analysis</h2>
+        <p>
+          With one explicit permission, the extension can inspect Chrome or
+          Brave history once and pass only base-domain visit counts and the most
+          recent visit date to the macOS app.
+        </p>
+        <p class="muted">
+          Full URLs and titles exist only in the browser API response while the
+          scan runs; they are discarded immediately and never written to storage.
+        </p>
+        <p id="history-policy" class="muted"></p>
+        <div class="button-row">
+          <button id="analyse-history" class="primary" type="button">
+            Analyse the last 30 days
+          </button>
+          <button id="remove-history" class="secondary" type="button" hidden>
+            Remove history permission
+          </button>
+        </div>
+        <p id="history-status" class="muted" aria-live="polite"></p>
+      </section>
+
+      <p id="error" class="error" role="alert"></p>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "focus-session-browser-extension",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "Local-first Chrome and Brave companion for Focus Session.",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check src/background.js && node --check src/content.js && node --check src/pages/blocked.js && node --check src/pages/options.js && node --check src/pages/popup.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Focus Session</title>
+    <link rel="stylesheet" href="../styles/common.css">
+    <link rel="stylesheet" href="../styles/blocked.css">
+  </head>
+  <body>
+    <main class="blocked-shell">
+      <section class="card blocked-card" aria-labelledby="page-title">
+        <div class="eyebrow">Focus Session</div>
+        <h1 id="page-title">This site is paused.</h1>
+        <p id="summary" class="lede">Checking the active session…</p>
+
+        <dl class="status-grid">
+          <div>
+            <dt>Session ends</dt>
+            <dd id="session-end">—</dd>
+          </div>
+          <div>
+            <dt id="timer-label">Next break</dt>
+            <dd id="timer-value">—</dd>
+          </div>
+        </dl>
+
+        <p id="error" class="error" role="alert"></p>
+
+        <div class="actions">
+          <button id="start-break" class="primary" type="button" hidden>
+            Start 5-minute break
+          </button>
+          <button id="continue-site" class="primary" type="button" hidden>
+            Continue to site
+          </button>
+          <button id="go-back" class="secondary" type="button">
+            Go somewhere else
+          </button>
+          <button id="open-app" class="secondary" type="button">
+            Open FocusSession
+          </button>
+          <button id="open-settings" class="secondary" type="button">
+            Extension settings
+          </button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="blocked.js"></script>
+  </body>
+</html>

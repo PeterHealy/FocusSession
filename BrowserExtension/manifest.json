@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "Focus Session",
+  "version": "0.1.0",
+  "description": "Locally blocks selected websites during deliberate work sessions.",
+  "minimum_chrome_version": "121",
+  "permissions": [
+    "alarms",
+    "declarativeNetRequestWithHostAccess",
+    "idle",
+    "nativeMessaging",
+    "storage",
+    "tabs",
+    "webNavigation"
+  ],
+  "optional_permissions": [
+    "history"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/pages/popup.html",
+    "default_title": "Focus Session"
+  },
+  "options_page": "src/pages/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/pages/blocked.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
