@@ -81,16 +81,24 @@ final class AppModel: ObservableObject {
         }
     }
 
-    var menuBarSystemImage: String {
+    var menuBarAccessibilityLabel: String {
         switch publicState.phase {
         case .inactive:
-            return "scope"
+            return "Focus Session is inactive"
         case .focusing:
-            return "timer"
+            return "Focus Session active, "
+                + DurationText.readable(
+                    publicState.sessionRemainingSeconds
+                )
+                + " remaining"
         case .breakAvailable:
-            return "cup.and.saucer.fill"
+            return "Focus Session active, break ready"
         case .onBreak:
-            return "hourglass.bottomhalf.filled"
+            return "Focus Session on break, "
+                + DurationText.readable(
+                    publicState.breakRemainingSeconds
+                )
+                + " remaining"
         }
     }
 

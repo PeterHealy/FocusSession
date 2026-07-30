@@ -35,6 +35,31 @@ final class SessionServiceTests: XCTestCase {
         )
     }
 
+    func testPublicStateReportsOverallSessionProgress() throws {
+        let service = try makeService()
+        let start = Date(timeIntervalSince1970: 1_250_000)
+        let end = start.addingTimeInterval(4 * 60 * 60)
+
+        let initial = try service.startSession(
+            endingAt: end,
+            now: start
+        )
+        XCTAssertEqual(
+            initial.sessionElapsedFraction,
+            0,
+            accuracy: 0.000_001
+        )
+
+        let midpoint = try service.publicState(
+            now: start.addingTimeInterval(2 * 60 * 60)
+        )
+        XCTAssertEqual(
+            midpoint.sessionElapsedFraction,
+            0.5,
+            accuracy: 0.000_001
+        )
+    }
+
     func testNoBreakSessionStaysFocusedAndCountsIntervals() throws {
         let service = try makeService()
         let start = Date(timeIntervalSince1970: 1_500_000)

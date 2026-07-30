@@ -428,6 +428,7 @@ Safety rules:
 - On `historyEnabled = false`, the extension immediately clears its blocked-attempt buffer and stops creating new attempt aggregates.
 - On `usageObservationEnabled = false`, the extension immediately closes/removes its current activity segment, clears its domain-activity buffer, and stops creating new activity aggregates.
 - The extension applies requested and pushed snapshots, refreshes after every mutating request, and retains a one-minute/lifecycle-triggered fallback while active.
+- Delivery of state notifications to open tabs is best-effort and bounded. A frozen, discarded, or otherwise unresponsive tab must not delay cache or dynamic-rule updates, absolute expiry, early-end propagation, or later state snapshots.
 
 Because v1 has no revision field, a requested response and a pushed response are not explicitly orderable. The extension serializes state-changing requests (`startBreak` and `extendBreak`) and processes native snapshots through one state queue. Each snapshot is a complete authoritative view generated after native reconciliation. Adding explicit state revisions and protocol idempotency keys is a deferred hardening item.
 

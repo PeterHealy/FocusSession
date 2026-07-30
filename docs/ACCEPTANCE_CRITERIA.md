@@ -38,6 +38,13 @@ Given a session scheduled to end while the app, browser, or Mac is unavailable, 
 **AC-A08 — No pause**  
 No v1 menu, settings screen, blocked page, protocol method, or keyboard action offers session pause or pause-and-extend.
 
+**AC-A09 — Menu-bar hourglass (manual)**
+When inactive, the monochrome menu-bar hourglass has no sand in its top and
+rests mostly filled at the bottom. Starting a session gives it one restrained
+flip, unless Reduce Motion is enabled. Throughout every active phase, the top
+sand represents approximate overall session time remaining and the bottom sand
+represents time elapsed.
+
 ## B. Focus and break state machine
 
 Tests in this section use an injectable clock.
@@ -183,6 +190,14 @@ With a persistent `connectNative` port open, changing shared native state from a
 
 **AC-D12 — Push reconnect and fallback**  
 When the persistent native port disconnects, the extension retains safely expiring cached enforcement, schedules bounded reconnect attempts, and continues a one-minute state-request fallback. Restoring the native host re-establishes the port without restarting the browser.
+
+**AC-D13 — Unresponsive-tab isolation**
+
+With one or more Chrome or Brave tabs whose extension message promise never
+settles, starting, ending early, force-cancelling, and expiring a session still
+update the extension cache and dynamic rules within one second. Responsive tabs
+receive state notifications in order; delivery to an unresponsive tab is
+abandoned after a bounded local timeout and cannot pin later state snapshots.
 
 ## E. Native-app enforcement
 

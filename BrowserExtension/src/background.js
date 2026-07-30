@@ -4,6 +4,7 @@ import {
   normalizeHostname,
   serviceForDomain,
 } from "./shared/domains.js";
+import { settleWithin } from "./shared/async.js";
 import {
   blockedPageUrl,
   blockingRules,
@@ -60,6 +61,7 @@ const MANAGED_ALARMS = Object.freeze(
 const DEFAULT_SETTINGS = Object.freeze({
   observeDomainActivity: false,
 });
+const TAB_OPERATION_TIMEOUT_MILLISECONDS = 250;
 const EXTENSION_ROOT_URL = chrome.runtime.getURL("/");
 
 let currentState = inactiveState();
@@ -303,14 +305,14 @@ async function enforceRestrictedUrl(
   if (!domain) {
     return false;
   }
-  try {
-    await chrome.tabs.update(tabId, {
-      url: blockedPageUrl(EXTENSION_ROOT_URL, domain, reason),
-    });
-    return true;
-  } catch {
-    return false;
-  }
+  const result = await settleWithin(
+    () =>
+      chrome.tabs.update(tabId, {
+        url: blockedPageUrl(EXTENSION_ROOT_URL, domain, reason),
+      }),
+    TAB_OPERATION_TIMEOUT_MILLISECONDS,
+  );
+  return result.status === "fulfilled";
 }
 
 async function blockOpenRestrictedTabs(state, reason = "focus") {
@@ -368,12 +370,13 @@ async function broadcastState(state = currentState) {
       if (tab.id === undefined) {
         return;
       }
-      try {
-        await chrome.tabs.sendMessage(tab.id, message);
-      } catch {
-        // Browser-internal pages and pages loaded before installation have no
-        // content script. They do not need the shot-clock overlay.
-      }
+      // Frozen/discarded Brave tabs can leave sendMessage pending forever.
+      // State storage and DNR updates are authoritative, so tab delivery is
+      // best-effort and must not pin the serialized enforcement queue.
+      await settleWithin(
+        () => chrome.tabs.sendMessage(tab.id, message),
+        TAB_OPERATION_TIMEOUT_MILLISECONDS,
+      );
     }),
   );
 }

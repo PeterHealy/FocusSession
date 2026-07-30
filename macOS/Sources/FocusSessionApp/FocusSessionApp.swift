@@ -16,10 +16,18 @@ struct FocusSessionAppMain: App {
             MenuBarContentView()
                 .environmentObject(model)
         } label: {
-            Label(
-                model.menuBarTitle,
-                systemImage: model.menuBarSystemImage
-            )
+            Label {
+                Text(model.menuBarTitle)
+            } icon: {
+                HourglassMenuBarIcon(
+                    isActive: model.publicState.isSessionActive,
+                    elapsedFraction:
+                        model.publicState.sessionElapsedFraction
+                )
+            }
+            .labelStyle(.titleAndIcon)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(model.menuBarAccessibilityLabel)
         }
         .menuBarExtraStyle(.window)
 

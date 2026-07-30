@@ -26,6 +26,40 @@ test("activity append does not reacquire its caller's aggregate queue", async ()
   assert.doesNotMatch(helperSource, /serialiseAggregateWork\s*\(/);
 });
 
+test("unresponsive tabs cannot pin the enforcement state queue", async () => {
+  const source = await readFile(
+    path.join(ROOT, "src/background.js"),
+    "utf8",
+  );
+  const broadcastStart = source.indexOf(
+    "async function broadcastState",
+  );
+  const broadcastEnd = source.indexOf(
+    "\nasync function updateAction",
+    broadcastStart,
+  );
+  assert.ok(broadcastStart >= 0 && broadcastEnd > broadcastStart);
+  const broadcastSource = source.slice(broadcastStart, broadcastEnd);
+  assert.match(
+    broadcastSource,
+    /settleWithin\(\s*\(\) => chrome\.tabs\.sendMessage/,
+  );
+
+  const redirectStart = source.indexOf(
+    "async function enforceRestrictedUrl",
+  );
+  const redirectEnd = source.indexOf(
+    "\nasync function blockOpenRestrictedTabs",
+    redirectStart,
+  );
+  assert.ok(redirectStart >= 0 && redirectEnd > redirectStart);
+  const redirectSource = source.slice(redirectStart, redirectEnd);
+  assert.match(
+    redirectSource,
+    /settleWithin\(\s*\(\) =>\s*chrome\.tabs\.update/,
+  );
+});
+
 test("fresh extensions keep aggregate domain observation off", async () => {
   const source = await readFile(
     path.join(ROOT, "src/background.js"),

@@ -24,6 +24,9 @@ The product is designed to interrupt impulsive switching, not to act as parental
 ### Platforms and surfaces
 
 - Native menu-bar app for macOS 26 on Apple silicon.
+- The menu-bar label uses a monochrome hourglass. Inactive, its sand rests
+  mostly in the bottom. Starting a session gives it one restrained flip, then
+  sand moves from top to bottom to show approximate overall session progress.
 - A single Chromium Manifest V3 extension build supported in:
   - Google Chrome
   - Brave

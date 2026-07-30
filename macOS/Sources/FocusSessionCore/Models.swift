@@ -630,6 +630,25 @@ public struct PublicSessionState: Codable, Equatable, Sendable {
         self.historyEnabled = historyEnabled
         self.blockedDomains = blockedDomains
     }
+
+    public var sessionElapsedFraction: Double {
+        guard isSessionActive,
+              let startedAt,
+              let scheduledEndAt
+        else {
+            return 0
+        }
+
+        let totalDuration = scheduledEndAt.timeIntervalSince(startedAt)
+        guard totalDuration > 0 else {
+            return 1
+        }
+
+        return min(
+            1,
+            max(0, 1 - sessionRemainingSeconds / totalDuration)
+        )
+    }
 }
 
 public struct HistorySummaryEntry: Codable, Equatable, Sendable {
