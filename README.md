@@ -161,6 +161,7 @@ session. Every start uses a cancellable three-second countdown.
 | `docs/ARCHITECTURE.md` | Component and recovery design |
 | `docs/PRIVACY.md` | Allowed/prohibited data and permissions |
 | `docs/NATIVE_PROTOCOL.md` | Flat local native-messaging contract |
+| `docs/UI_BRAND_ROADMAP.md` | Researched UI, identity, and logo task backlog |
 | `AGENTS.md` | Setup path and invariants for coding agents |
 | `CHANGELOG.md` | User-visible release history |
 | `CONTRIBUTING.md` | Contribution workflow |

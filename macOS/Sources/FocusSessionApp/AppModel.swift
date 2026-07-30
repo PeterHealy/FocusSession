@@ -69,29 +69,23 @@ final class AppModel: ObservableObject {
     }
 
     var menuBarTitle: String {
-        switch publicState.phase {
-        case .inactive:
+        guard publicState.isSessionActive else {
             return "Focus"
-        case .focusing:
-            return DurationText.compact(publicState.focusRemainingSeconds)
-        case .breakAvailable:
-            return "Break ready"
-        case .onBreak:
-            return DurationText.compact(publicState.breakRemainingSeconds)
         }
+        return DurationText.compact(
+            publicState.sessionRemainingSeconds
+        )
     }
 
-    var menuBarSystemImage: String {
-        switch publicState.phase {
-        case .inactive:
-            return "scope"
-        case .focusing:
-            return "timer"
-        case .breakAvailable:
-            return "cup.and.saucer.fill"
-        case .onBreak:
-            return "hourglass.bottomhalf.filled"
+    var menuBarAccessibilityLabel: String {
+        guard publicState.isSessionActive else {
+            return "Focus Session is inactive"
         }
+        return "Focus Session active, "
+            + DurationText.readable(
+                publicState.sessionRemainingSeconds
+            )
+            + " remaining"
     }
 
     func startConfiguredSession(

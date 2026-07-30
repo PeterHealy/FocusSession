@@ -38,6 +38,12 @@ Given a session scheduled to end while the app, browser, or Mac is unavailable, 
 **AC-A08 — No pause**  
 No v1 menu, settings screen, blocked page, protocol method, or keyboard action offers session pause or pause-and-extend.
 
+**AC-A09 — Menu-bar label (manual)**
+The menu-bar label contains text only, with no status icon. It reads `Focus`
+while inactive. Throughout `focusing`, `breakAvailable`, and `onBreak`, it
+shows the overall session time remaining rather than the current focus-interval
+or break countdown.
+
 ## B. Focus and break state machine
 
 Tests in this section use an injectable clock.

@@ -16,10 +16,8 @@ struct FocusSessionAppMain: App {
             MenuBarContentView()
                 .environmentObject(model)
         } label: {
-            Label(
-                model.menuBarTitle,
-                systemImage: model.menuBarSystemImage
-            )
+            Text(model.menuBarTitle)
+            .accessibilityLabel(model.menuBarAccessibilityLabel)
         }
         .menuBarExtraStyle(.window)
 

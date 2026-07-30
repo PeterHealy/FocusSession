@@ -24,6 +24,8 @@ The product is designed to interrupt impulsive switching, not to act as parental
 ### Platforms and surfaces
 
 - Native menu-bar app for macOS 26 on Apple silicon.
+- The menu-bar label is text only: `Focus` while inactive and the overall
+  session countdown throughout every active phase.
 - A single Chromium Manifest V3 extension build supported in:
   - Google Chrome
   - Brave
